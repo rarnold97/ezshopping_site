@@ -1,0 +1,32 @@
+[project]
+name = "ez_shopping_site"
+dynamic = [ "version" ]
+license = {file = "LICENSE"}
+
+requires-python = ">=3.12"
+
+authors = [
+    {name = "Ryan M. Arnold", email = "arnold.227@wright.edu"},
+]
+keywords = ["ez_shopping", "site", "ceg", "6110", "term project"]
+
+[project.urls]
+repository = "https://github.com/rarnold97/ezshopping_site"
+#documentation = ""
+
+[tool.poetry]
+version = "1.0.0"  # base version
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+
+mkdocs = "^1.6.1"
+mkdocs-material = "^9.5.49"
+mkdocs-windmill = "^1.0.5"
+pymdown-extensions = "^10.14"
+mkdocs-glightbox = "^0.4.0"
+mkdocstrings-python = "^1.13.0"
+mkdocs-badges = "^0.4.4"
+mkdocs-literate-nav = "^0.6.1"
+termynal = "^0.13.0"
+mkdocs-include-markdown-plugin = "^7.1.2"

@@ -1,0 +1,96 @@
+site_name: EzShopping Documentation
+
+repo_url: https://github.com/rarnold97/ezshopping_site
+site_url: https://rarnold97.github.io/ezshopping_site/
+
+theme:
+  name: material
+  favicon: assets/grocery_material_favicon.svg
+  logo: assets/wright_state_logo.png
+  font:
+    text: Ubuntu
+    code: Roboto Mono
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: teal
+      accent: yellow
+
+    - scheme: default
+      toggle:
+          icon: material/brightness-4
+          name: Switch to light mode
+      primary: teal
+      accent: amber
+  features:
+    - content.code.copy
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - 
+
+plugins:
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      zoomable: true
+      draggable: true
+      auto_caption: false
+      caption_position: bottom
+
+  # https://mkdocstrings.github.io/
+  - mkdocstrings:
+      enabled: true
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: true
+  - literate-nav:
+      nav_file: nav.md
+  - include-markdown
+  - badges
+  - search
+  - termynal:
+      title: bash
+      buttons: windows
+      prompt_literal_start:
+        - "$"
+        - ">"
+
+markdown_extensions:
+  - pymdownx.blocks.admonition
+  - admonition
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+      linenums: true
+  - pymdownx.superfences
+  - pymdownx.smartsymbols
+  - pymdownx.tabbed
+  - toc:
+      permalink: true
+      toc_depth: 4
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true  # Optional: Use custom checkboxes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - stylesheets/extra.css

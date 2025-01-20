@@ -1,7 +1,7 @@
 site_name: EzShopping Documentation
 
 repo_url: https://github.com/rarnold97/ezshopping_site
-site_url: https://rarnold97.github.io/ezshopping_site/
+site_url: https://rarnold97.github.io/ezshopping_site
 
 theme:
   name: material

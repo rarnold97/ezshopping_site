@@ -25,6 +25,6 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: |
-          pip install mkdocs-material mkdocs-extensions pymdownx-extensions mkdocs-glightbox \
+          pip install mkdocs-material mkdocs-extensions pymdown-extensions mkdocs-glightbox \
           mkdocstrings-python mkdocs-badges mkdocs-literate-nav termynal mkdocs-include-markdown-plugin
       - run: mkdocs gh-deploy --force

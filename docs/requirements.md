@@ -5,17 +5,38 @@
 **(01/21/2025) - in-class**
 
 ### Questions
-- [ ] Is it acceptable to only use one grocery store chain API (i.e., kroger, meijer, etc.)
-- [ ] how should we do login page and storing of credentials ? Where do we host this service ? Is docker acceptable?
-- [ ] is it acceptable to upload images on a website widget as opposed to using a phone or tablet for an MVP?
-- [ ] What is your expectations for our site? What type of information are you looking for ?
-- [ ] We want to test our MVP with a min-set of grocery items, would a min-set of 5-10 items be sufficient ?
-- [ ] are there any specific pages, widgets, or specific-features you want on the frontend?
-- [ ] How should secrets and client data be managed ? Any special requests? We propose a database that is pass-word protected for now.
-- [ ] Do you want us to use CICD ?
-- [ ] How do you expect us to deliver/distribute the app? Are python installable artifacts sufficient?
-- [ ] Are local host and dummy user solutions accetable for MVP ?
-- [ ] Do we need to create a customer access token as well ? Or can we just use a shared one for this?
+- [x] **Is it acceptable to only use one grocery store chain API (i.e., Kroger, Meijer, etc.)?**  
+  Yes, using a single API is acceptable. The Kroger API is preferred.
+
+- [x] **How should we do the login page and store credentials? Where do we host this service? Is Docker acceptable?**  
+  You can implement the login system in a way that is easiest for the team. Hosting on localhost is sufficient for now.
+
+- [x] **Is it acceptable to upload images on a website widget as opposed to using a phone or tablet for an MVP?**  
+  Yes, a simple button click to upload images on the website widget is acceptable.
+
+- [x] **What are your expectations for our site? What type of information are you looking for?**  
+  The system should perform object detection for multiple grocery items. For example, if there are items like bananas, apples, bread, and ice cream on a table, the system should detect these items and generate a corresponding list.
+
+- [x] **We want to test our MVP with a minimum set of grocery items. Would a minimum set of 5–10 items be sufficient?**  
+  Yes, testing with a minimum set of 5–10 items is sufficient.
+
+- [x] **Are there any specific pages, widgets, or features you want on the frontend?**  
+  Including a QR code feature would be a great addition.
+
+- [x] **How should secrets and client data be managed? Any special requests?**  
+  A password-protected database for managing secrets and client data is acceptable for now.
+
+- [x] **Do you want us to use CI/CD?**  
+  No, CI/CD is not required for this project.
+
+- [x] **How do you expect the app to be delivered/distributed? Are Python installable artifacts sufficient?**  
+  Python installable artifacts are sufficient for delivering the application.
+
+- [x] **Are localhost and dummy user solutions acceptable for the MVP?**  
+  Yes, using localhost and dummy users is acceptable for the MVP phase.
+
+- [x] **Do we need to create a customer access token, or is using a shared token acceptable?**  
+  Using a shared token is acceptable.
 
 ## Feature Wish-list
 - [ ] fancy login page that connects to API via a URI

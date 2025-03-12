@@ -3,3 +3,4 @@
 * [Getting Started](getting_started.md)
 * [Customer Requirements](requirements.md)
 * [Tools and Technologies](tools_and_technologies.md)
+* [Code Architecture and Design](design_and_architecture.md)

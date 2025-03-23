@@ -18,6 +18,13 @@ jobs:
         with:
           python-version: 3.x
       - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+
+      - name: Configure Poetry
+        run: poetry config virtualenvs.create false
+
       - uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ env.cache_id }}
@@ -25,6 +32,5 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: |
-          pip install mkdocs-material mkdocs-extensions pymdown-extensions mkdocs-glightbox \
-          mkdocstrings-python mkdocs-badges mkdocs-literate-nav termynal mkdocs-include-markdown-plugin
+          poetry install
       - run: mkdocs gh-deploy --force

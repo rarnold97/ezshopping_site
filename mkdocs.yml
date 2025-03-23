@@ -68,6 +68,11 @@ plugins:
 markdown_extensions:
   - pymdownx.blocks.admonition
   - admonition
+  - pymdownx.pathconverter:
+      base_path: ''
+      relative_path: ''
+      absolute: true
+      tags: 'a pdf link object embed'
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
@@ -91,6 +96,11 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.pathconverter:
+      base_path: '' # default: ''
+      relative_path: '' # default ''
+      absolute: false # default: false
+      tags: 'a script img link object embed'
 
 extra_css:
   - stylesheets/extra.css

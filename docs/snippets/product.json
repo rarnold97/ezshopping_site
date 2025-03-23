@@ -1,0 +1,16 @@
+{
+    _id: ObjectId('67d39b52595c19e220f430a1'),
+    uid: null,
+    latest_update_time: ISODate('2025-03-13T22:58:26.370Z'),
+    search_term: 'apple',
+    product_id: '0000000004130',
+    nearest_location_id: '01400938',
+    product_uri: '/p/large-fuji-apple-each/0000000004131?cid=dis.api.tpi_products-api_20240521_b:all_c:p_t:ezshopping-243261243',
+    brand: 'Fresh Apples',
+    product_descriptor: 'Large Fuji Apple – Each',
+    price_usd: 0.99,
+    aisle: [
+        '{"description": "PRODUCE", "number": "0"}'
+    ],
+    inventory_level: 1
+}

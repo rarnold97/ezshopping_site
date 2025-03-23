@@ -1,0 +1,1264 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rarnold97.github.io/ezshopping_site/design_and_architecture/">
+      
+      
+        <link rel="prev" href="../getting_started/">
+      
+      
+        <link rel="next" href="../tools_and_technologies/">
+      
+      
+      <link rel="icon" href="../assets/grocery_material_favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Code Architecture and Design - EzShopping Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../assets/stylesheets/badge.css">
+    
+      <link rel="stylesheet" href="../termynal.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="yellow">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#design-and-architecture-for-ezshopping" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="EzShopping Documentation" class="md-header__button md-logo" aria-label="EzShopping Documentation" data-md-component="logo">
+      
+  <img src="../assets/wright_state_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EzShopping Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Code Architecture and Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="yellow"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rarnold97/ceg6110-term-project-group-2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="EzShopping Documentation" class="md-nav__button md-logo" aria-label="EzShopping Documentation" data-md-component="logo">
+      
+  <img src="../assets/wright_state_logo.png" alt="logo">
+
+    </a>
+    EzShopping Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rarnold97/ceg6110-term-project-group-2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Code Architecture and Design
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Code Architecture and Design
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    <span class="md-ellipsis">
+      History
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-backend-interface-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Backend Interface API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-model-design-and-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classification Model Design and Reasoning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-kroger-rest-api-library-and-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Kroger REST API Library and Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-linkage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Linkage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-database-record-schema-classes-and-database-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Database Record Schema Classes and Database Entries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools_and_technologies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Technologies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customer Requirements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../future_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Future Work
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    <span class="md-ellipsis">
+      History
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-backend-interface-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend Backend Interface API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-model-design-and-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classification Model Design and Reasoning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-kroger-rest-api-library-and-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend Kroger REST API Library and Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-linkage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Linkage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-database-record-schema-classes-and-database-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Database Record Schema Classes and Database Entries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="design-and-architecture-for-ezshopping">Design and Architecture for EzShopping<a class="headerlink" href="#design-and-architecture-for-ezshopping" title="Permanent link">¶</a></h1>
+<p><strong>High Level Architecture</strong></p>
+<p><a class="glightbox" href="../images/architecture_diagram_v1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/architecture_diagram_v1.png"></a></p>
+<p>At a high-level, our app contains the following services:</p>
+<ul>
+<li>Frontend</li>
+<li>Backend</li>
+<li>Frontend-Backend-Interface</li>
+<li>Databases</li>
+</ul>
+<p>Each service will be describe in more detail in the sections that follow. The component that we want to emphasize is the <em>FrontendBackendInterface</em>. We designed so that high-level tasks could be abstracted from the perspectives of the frontend and backend. For example, The frontend may request to add an item to the user's cart. We designed the interface so that the frontend service only needs to call one function from the interface for this task.  The backend implementations, such as: authentication, interacting with REST endpoints, and interacting with databases, are abstracted by the backend library modules.</p>
+<h2 id="frontend-design">Frontend Design<a class="headerlink" href="#frontend-design" title="Permanent link">¶</a></h2>
+<hr>
+<p><a class="glightbox" href="../images/frontend_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/frontend_architecture.png"></a></p>
+<p>For our frontend driver service, we used the <a href="https://docs.streamlit.io/">Streamlit library</a>.  Our frontend application hosts two pages:
+1. Homepage / Login
+2. Dashboard</p>
+<h3 id="login">Login<a class="headerlink" href="#login" title="Permanent link">¶</a></h3>
+<p>Our login service uses text field widgets that enable the user to enter usernames and password. Thanks to a built-in streamlit feature, the password is hidden as the user types it. If the username entered was not found, the application prompts the user to create an account. Specifically, the code will query a user database to see if the user exists. Once a new account is created, we encode the password using python library: <a href="https://docs.python.org/3/library/hashlib.html"><code>hashlib</code></a>.</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">session_state</span><span class="o">.</span><span class="n">new_password</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>Upon login, the user is asked to authenticate their Kroger account. A button is shown that takes the user to the Kroger sign-in page. After a successful sign-in, the Kroger site redirects back to the app via a gateway. We use the free version of <a href="https://ngrok.com/docs/">ngrok as our gateway</a>, to redirect traffic back to our app. After authentication, Kroger appends an access key the the URL as a response, which we ingest and use for the "Add to cart" API calls. Kroger uses <a href="https://developer.kroger.com/documentation/public/security/guides-oauth?beta=true">Oauth2 authentication</a> for this whole proccess. Once authenticated, the user is redirected to the main Dashboard page. We have also implemented a "log out" button, which redirects the user back to the home/login page.</p>
+<h3 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">¶</a></h3>
+<p>The dashboard page is where most of the business logic exists. Here, there are three tabs that serve as sub-pages:
+1. Upload
+2. History
+3. Kroger cart</p>
+<h4 id="upload">Upload<a class="headerlink" href="#upload" title="Permanent link">¶</a></h4>
+<p>The upload tab allows the user to upload an image, and supports the following image formats: <em>.png, </em>.jpg, *.tiff. Upon upload, the frontend service will pass the image data to a <a href="https://github.com/rarnold97/ceg6110-term-project-group-2/blob/main/ez_shopping/frontend_backend_interface.py"><code>FrontendBackendInterface</code></a> client. The client calls modules from the backend to invoke the image recognition pipeline, which currently uses a pretrained <a href="https://docs.ultralytics.com/models/yolo11/">Ultralytics Yolo11</a> model checkpoint. After the model processes, it stores its results to a database (which links classification labels to image file pointers) and displays a message to the user what it classifies the objects in the image the image as.</p>
+<p>After classification, two widgets are enabled for the user to interact with for adding grocery items to their Kroger cart instance. The first is an uptick widget, which allows the user to set the quantity of items to add; the scond is a button that will attempt to add the item list to their Kroger cart. The implementation of this is integrated together by the <a href="https://github.com/rarnold97/ceg6110-term-project-group-2/blob/main/ez_shopping/frontend_backend_interface.py"><code>FrontendBackendInterface</code></a>.</p>
+<h3 id="history">History<a class="headerlink" href="#history" title="Permanent link">¶</a></h3>
+<p>The second tab allows the user to see a history of their image uploads, and data for the products contained in the images. Data Includes:</p>
+<ul>
+<li>Detected Label(s)</li>
+<li>brand</li>
+<li>price</li>
+<li>nearest location</li>
+<li>date uploaded</li>
+<li>etc.</li>
+</ul>
+<p>The frontend has logic to ensure that the history is only displayed for the logged in user. The user is also presented a radio menu that lets them filter the time window. They are offered: the past day, past week, past month, and past year. We also set a limit on the number of items that can be rendered (default is 5). Any items in surplus of the limit are displayed on a "next page", and the user is given buttons to advance or decrement the page, as well as what the current page is. The purpose of this was to reduce the amount of widgets spawned at any given pass of the frontend application loop.</p>
+<p>Once a record is rendered, the user can "re-add" the item to their cart. A quantity ticker is available to allow the user to customize the quantity of items to "re-add" to their cart instance.</p>
+<p><a class="glightbox" href="../images/history_snapshot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/history_snapshot.png"></a></p>
+<h2 id="frontend-backend-interface-api">Frontend Backend Interface API<a class="headerlink" href="#frontend-backend-interface-api" title="Permanent link">¶</a></h2>
+<hr>
+<p><a class="glightbox" href="../images/frontend_backend_interface_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/frontend_backend_interface_architecture.png"></a></p>
+<p>We designed an API that we call: <code>FrontendBackendInterface</code>, to glue the frontend to the backend together in a streamlined, integratable fashion.  This interface allows developers to make progress, either on the fronted or backend, without worrying about all the implementation details of the backend/frontend. This design was effective for making progress on this application. Each method is designed to accomplish a general task that a user will require during a session.  In general, each function pulls functions from different backend modules together and the necessary code to interact with our project databases. Since the implementation details are abstracted in each method, it simplifies usage, such that a developer only needs to make either a single or couple of method calls. The full implementation details may be found within our source code <a href="https://github.com/rarnold97/ceg6110-term-project-group-2/blob/main/ez_shopping/frontend_backend_interface.py"><code>FrontendBackendInterface.py</code></a> on Github.</p>
+<h2 id="classification-model-design-and-reasoning">Classification Model Design and Reasoning<a class="headerlink" href="#classification-model-design-and-reasoning" title="Permanent link">¶</a></h2>
+<hr>
+<p><a class="glightbox" href="../images/object_recognition_pipeline.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/object_recognition_pipeline.png"></a></p>
+<p>Our survey of image recognition models was limited, due to time constraints. We primarly compared and contrasted three models: the Ultralytics Yolo11 model, Google TensorFlow Hub, and Facebook Detectron2. We ultimately decided to use the Ultralytics Yolo11 model. The primary factor that influenced our decision was the ease-of-use of the Yolo model. It required minimal code to integrate, is fast, and performs reasonably well. However, the fidelity of this model was limited. Moreover, it was only able to provide detection on a limited subset of grocery items. Therefore, future research would involve surveying higher-fidelity models for object detection.</p>
+<p>In terms of implementation, the workflow was simple. First, we marshalled image data from the frontend image uploader widget into a <a href="https://pillow.readthedocs.io/en/stable/reference/Image.html">PIL Image</a> datastructure. If a checkpoint had not already been loaded, we load a Yolo11 checkpoint for the pre-trained machine learning model. Then, we pass the image data through the model pipeline, and collect the predicted labels. Finally, we intersect the label with a pre-selected set of labels that would be acceptable grocery store items. For example, if the detection model can classify a cat from an image, we don't want to accept that because you probably cannot purchase a cat at a Kroger grocery store chain. If the detected label is not acceptable, we instead return and empty list in the code. For more implementation details, see our <a href="https://github.com/rarnold97/ceg6110-term-project-group-2/blob/main/ez_shopping/backend/image_classification.py">source code: <code>image_classification.py</code></a> on Github.</p>
+<h2 id="backend-kroger-rest-api-library-and-workflow">Backend Kroger REST API Library and Workflow<a class="headerlink" href="#backend-kroger-rest-api-library-and-workflow" title="Permanent link">¶</a></h2>
+<hr>
+<p><a class="glightbox" href="../images/REST_backend_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/REST_backend_architecture.png"></a></p>
+<p>The diagram above outlines the workflow of the backend library we designed to interact with Kroger API REST endpoints. There are two primary points of interaction with the frontend: when the user authenticates via oauth2 to provide programatic access to their cart, and when the user elects to add item(s), from an uploaded image file, to their cart. All interaction witht the frontend gets abstracted by the <code>FrontendBackendInterface</code>. Below is an example walking through a scenario:</p>
+<div class="admonition example">
+<p class="admonition-title">Example Backend Kroger API Interaction</p>
+<p>Suppose the user has uploaded an image, the detection labels have been generated, and they are ready to add 2 apples to their shooping cart, the following will likely occur:</p>
+<ol>
+<li><strong>Retrieve a client API token</strong> to interact with Kroger's endpoints.</li>
+<li><strong>Request the nearest location</strong>, based on the active IP of the currently running application client. If this location is already available in our Kroger Locations Database, we query it for faster access. Otherwise, we make a REST request to the Kroger "Locations" API.</li>
+<li><strong>Request product data.</strong> All image classification labels are used as product search terms as is. If the product we are looking for has already been stored in our Kroger Products databse, query it instead for faster access. Otherwise, we make a REST request to the Kroger "Products" API, with appropriate product filters (namely lowest price).</li>
+<li><strong>Collect a proper authenticated Oauth2 token.</strong> This is associated per-user. We also store this per-session in our User Database. If we cannot query it from our database,
+we ingetst the token from the redirect URL that kroger updates post-authentication on their end. This is possible due to our ngrok gateway service.</li>
+<li><strong>Add the product(s) to the user's kroger cart</strong> using the Kroger "Carts" API. Using data, like requested quantity, we update appropriate url keys.</li>
+</ol>
+</div>
+<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">¶</a></h2>
+<hr>
+<p><strong>Mongo Collection Preview</strong></p>
+<p><a class="glightbox" href="../images/database_collection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/database_collection.png"></a></p>
+<p>Using Mongo DB as our database server, we assembled the following collections (a.k.a smaller databases):</p>
+<ul>
+<li>user_data</li>
+<li>product_images (with associated GridFS as image data File Storage service)</li>
+<li>kroger_locations</li>
+<li>kroger_products</li>
+</ul>
+<p>The user_data collection stores user credentials. Primarily, the records consist of usernames, passwords (encrypted), and kroger customer tokens. The product_images collection stores metadata about all the product images. This includes: image filename (with extension), file pointer to our File Storage server, and associated classification labels from the object detection pipeline. Storing classification labels with the uploaded image reduces the number of calls we must make to our image detection pipeline, which tends to add computational overhead. Next, we have databases associated with Kroger API request data: kroger_locations and kroger_products. Product records and their price data are linked to the kroger_locations collection, to associate their data with the store location we gathered from. Each product record primarily contains information about the item, as it pertains to Kroger. For insance, they contain price information, universal product codes, brand names, which location the data is from, inventory, search term, and more.</p>
+<h3 id="database-linkage">Database Linkage<a class="headerlink" href="#database-linkage" title="Permanent link">¶</a></h3>
+<p><strong>Architecture Diagram</strong></p>
+<p><a class="glightbox" href="../images/db_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/db_architecture.png"></a></p>
+<p>In order for user requests to flow smoothly and reduce overhead, we had to be strategic about how to link the database collections together.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Future work may include improving our databse schema and linkage design.</p>
+</div>
+<p>We first always take into account who the active user is, and load their tokens into memory from the User Database. Let us start from left-to-right in the database diagram above. When an image is uploaded, it first goes through our object detection pipeline. After classification labels have been generated for all the detected objects, the data is compiled together to form a Product Record. We also associate the active user via username with the image, as well as the timestamp of upload. Then, the image metadata and classification labels are stored in our Product Iamge Database (shown by left-most green in the diagram). Once the metadata is stored, we also create a file pointer to our File Storage service (shown by the right-most green block). At this point, the code queries the Kroger REST API Response databases, namely the Products Database, to see if data for the classified objects are already available. The most important query key is the search term of the item. If no data exists, then we have to make requests to the Kroger API. The first is the Locations API. We determine what the nearest Kroger location is, based on the client's IP address. Then, we make a search at the selected, nearest location for each object detected in the uploaded image(s). Once we get responses, we store all the location data to a collection, and then all the product data to a separate collection. Each product record contains a location ID to link the two collections together.</p>
+<p>As a case-study, we are going to walk through all the database interactions that occur when populating the history tab of our dashboard page. Furthermore, this example is appropriate, because this feature of our application requires the most interaction with our databases. Suppose the user clicks on the history tab, and they select the "1 week" radio menu option. We first determine how much time has elapsed in one week in <code>datetime.datetime</code> format. Then, we filter the Products collection for all products that have been uploaded by the active user in the past week time window.  Once we gather these products, we then iterate through them all to obtain fid pointers to the actual uploaded image data. Using the file pointer, we can load all image data into memory. Then, we collect all store data about that product, including: nearest location, price, item brand name, date uplaoded, etc. Once all data is collected, we render separate tiles for each image that display all the aforementioned data with a rendering of the past uploaded image.</p>
+<h3 id="sample-database-record-schema-classes-and-database-entries">Sample Database Record Schema Classes and Database Entries<a class="headerlink" href="#sample-database-record-schema-classes-and-database-entries" title="Permanent link">¶</a></h3>
+<p>Below, we include all the different Python class schemas and sample collection entires for all involved Mongo database collections.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Base Database Record Class</p>
+<p><strong>Base DB Record Python Class</strong>
+</p><div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">DataBaseRecord</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="sd">"""Base class for records that can be stored in the database</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="sd">    The fields are optional so that a user can still construct the record,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="sd">    without populating the fields that the database will be populating automatically.</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="sd">    """</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="n">uid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ObjectId</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span class="n">latest_update_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">User Data</p>
+<p><strong>User Data Python Class Schema</strong>
+</p><div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">UserData</span><span class="p">(</span><span class="n">DataBaseRecord</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="n">access_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>    <span class="n">kroger_access_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>    <span class="n">kroger_refresh_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>User Data DB Record</strong>
+</p><div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">d</span><span class="mi">399971356</span><span class="kc">f</span><span class="mi">8</span><span class="err">c</span><span class="mi">19</span><span class="err">c</span><span class="mf">17054e</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="err">uid</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="err">la</span><span class="kc">test</span><span class="err">_upda</span><span class="kc">te</span><span class="err">_</span><span class="kc">t</span><span class="err">ime</span><span class="p">:</span><span class="w"> </span><span class="err">ISODa</span><span class="kc">te</span><span class="err">('</span><span class="mi">2025-03-13</span><span class="err">T</span><span class="mi">22</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mf">03.244</span><span class="err">Z')</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="err">user</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">'megama</span><span class="kc">n</span><span class="err">x'</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="err">password</span><span class="p">:</span><span class="w"> </span><span class="err">'a</span><span class="mi">2</span><span class="err">b</span><span class="mi">26668</span><span class="err">dd</span><span class="mi">97</span><span class="err">c</span><span class="mi">2</span><span class="kc">f</span><span class="mi">93</span><span class="err">ab</span><span class="mi">0</span><span class="err">c</span><span class="mi">9</span><span class="kc">f</span><span class="mi">877</span><span class="kc">ff</span><span class="mi">5</span><span class="err">a</span><span class="mf">4e</span><span class="kc">f</span><span class="mi">7</span><span class="kc">f</span><span class="mf">3e0</span><span class="kc">f</span><span class="mi">3755</span><span class="err">d</span><span class="mi">12880</span><span class="err">bedd</span><span class="mi">1</span><span class="err">bd</span><span class="kc">f</span><span class="err">d</span><span class="mi">497</span><span class="kc">ff</span><span class="mi">3</span><span class="err">'</span><span class="p">,</span><span class="w">  </span><span class="c1">// ascii representation: rockman</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="err">access_code</span><span class="p">:</span><span class="w"> </span><span class="err">'XXXX'</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="err">kroger_access_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">'YYYYY'</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="err">kroger_re</span><span class="kc">fres</span><span class="err">h_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">'ZZZZZZZZZ'</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Product Image Data</p>
+<p><strong>Product Image Python Class Schema</strong>
+</p><div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">ProductImageRecord</span><span class="p">(</span><span class="n">DataBaseRecord</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    <span class="n">file_storage_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>    <span class="n">image_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>    <span class="n">image_size</span><span class="p">:</span> <span class="n">Tuple</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>    <span class="n">image_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>    <span class="n">classification_labels</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>    <span class="n">linked_product_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Product Image DB Record</strong>
+</p><div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">c</span><span class="kc">f</span><span class="mi">94</span><span class="err">ca</span><span class="mi">5006</span><span class="err">d</span><span class="mi">85</span><span class="kc">ff</span><span class="mi">30</span><span class="err">c</span><span class="mi">5400</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="err">uid</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="err">la</span><span class="kc">test</span><span class="err">_upda</span><span class="kc">te</span><span class="err">_</span><span class="kc">t</span><span class="err">ime</span><span class="p">:</span><span class="w"> </span><span class="err">ISODa</span><span class="kc">te</span><span class="err">('</span><span class="mi">2025-03-10</span><span class="err">T</span><span class="mi">21</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">30.168</span><span class="err">Z')</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="kc">f</span><span class="err">ile_s</span><span class="kc">t</span><span class="err">orage_id</span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">c</span><span class="kc">f</span><span class="mi">94</span><span class="err">c</span><span class="mi">95006</span><span class="err">d</span><span class="mi">85</span><span class="kc">ff</span><span class="mi">30</span><span class="err">c</span><span class="mi">5372</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="err">image_</span><span class="kc">f</span><span class="err">ile</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">'real_pho</span><span class="kc">t</span><span class="err">o_</span><span class="mf">1.</span><span class="err">p</span><span class="kc">n</span><span class="err">g'</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="err">image_size</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">        </span><span class="mi">3024</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">        </span><span class="mi">4032</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span><span class="err">image_mode</span><span class="p">:</span><span class="w"> </span><span class="err">'RGB'</span><span class="p">,</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="err">classi</span><span class="kc">f</span><span class="err">ica</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">        </span><span class="err">'ora</span><span class="kc">n</span><span class="err">ge'</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">        </span><span class="err">'ba</span><span class="kc">nana</span><span class="err">'</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">    </span><span class="err">user</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">'rar</span><span class="kc">n</span><span class="err">old</span><span class="mi">97</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">    </span><span class="err">li</span><span class="kc">n</span><span class="err">ked_produc</span><span class="kc">t</span><span class="err">_ids</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">        </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">d</span><span class="mi">21</span><span class="err">b</span><span class="mi">975</span><span class="err">c</span><span class="mi">9</span><span class="err">d</span><span class="mf">0750485791e9</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">        </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">d</span><span class="mi">21</span><span class="err">b</span><span class="mf">9e5</span><span class="err">c</span><span class="mi">9</span><span class="err">d</span><span class="mi">0750485791</span><span class="kc">f</span><span class="mi">4</span><span class="err">')</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Product Data</p>
+<p><strong>Product Data Python Class Schema</strong>*
+</p><div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">ProductCard</span><span class="p">(</span><span class="n">DataBaseRecord</span><span class="p">):</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span><span class="sd">"""</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="sd">    Refined results from Kroger Product API responses.</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="sd">    """</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>    <span class="n">search_term</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>    <span class="n">product_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a>    <span class="n">nearest_location_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a>    <span class="n">product_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a>    <span class="n">brand</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>    <span class="n">product_descriptor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="n">price_usd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a>    <span class="n">aisle</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a>    <span class="n">inventory_level</span><span class="p">:</span> <span class="n">Inventory</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Product DB Record</strong>
+</p><div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">d</span><span class="mi">39</span><span class="err">b</span><span class="mi">52595</span><span class="err">c</span><span class="mf">19e220</span><span class="kc">f</span><span class="mi">430</span><span class="err">a</span><span class="mi">1</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="err">uid</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="err">la</span><span class="kc">test</span><span class="err">_upda</span><span class="kc">te</span><span class="err">_</span><span class="kc">t</span><span class="err">ime</span><span class="p">:</span><span class="w"> </span><span class="err">ISODa</span><span class="kc">te</span><span class="err">('</span><span class="mi">2025-03-13</span><span class="err">T</span><span class="mi">22</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mf">26.370</span><span class="err">Z')</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">    </span><span class="err">search_</span><span class="kc">ter</span><span class="err">m</span><span class="p">:</span><span class="w"> </span><span class="err">'apple'</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="err">produc</span><span class="kc">t</span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">0000000004130</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="kc">nearest</span><span class="err">_loca</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">01400938</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">    </span><span class="err">produc</span><span class="kc">t</span><span class="err">_uri</span><span class="p">:</span><span class="w"> </span><span class="err">'/p/large</span><span class="mi">-</span><span class="kc">fu</span><span class="err">ji</span><span class="mi">-</span><span class="err">apple</span><span class="mf">-e</span><span class="err">ach/</span><span class="mi">0000000004131</span><span class="err">?cid=dis.api.</span><span class="kc">t</span><span class="err">pi_produc</span><span class="kc">ts</span><span class="mi">-</span><span class="err">api_</span><span class="mi">20240521</span><span class="err">_b</span><span class="p">:</span><span class="err">all_c</span><span class="p">:</span><span class="err">p_</span><span class="kc">t</span><span class="p">:</span><span class="err">ezshoppi</span><span class="kc">n</span><span class="err">g</span><span class="mi">-243261243</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="err">bra</span><span class="kc">n</span><span class="err">d</span><span class="p">:</span><span class="w"> </span><span class="err">'Fresh</span><span class="w"> </span><span class="err">Apples'</span><span class="p">,</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="err">produc</span><span class="kc">t</span><span class="err">_descrip</span><span class="kc">t</span><span class="err">or</span><span class="p">:</span><span class="w"> </span><span class="err">'Large</span><span class="w"> </span><span class="err">Fuji</span><span class="w"> </span><span class="err">Apple</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="err">Each'</span><span class="p">,</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">    </span><span class="err">price_usd</span><span class="p">:</span><span class="w"> </span><span class="mf">0.99</span><span class="p">,</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">    </span><span class="err">aisle</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">}</span><span class="err">'</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">    </span><span class="err">i</span><span class="kc">n</span><span class="err">ve</span><span class="kc">nt</span><span class="err">ory_level</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Location Data</p>
+<p><strong>Kroger Location Python Class Schema</strong>
+</p><div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span>
+<span class="normal"><a href="#__codelineno-8-24">24</a></span>
+<span class="normal"><a href="#__codelineno-8-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">KrogerLocationCard</span><span class="p">(</span><span class="n">DataBaseRecord</span><span class="p">):</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="sd">"""</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="sd">    Filtered subset of response data from kroger locations request.</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="sd">    """</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>    <span class="n">store_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>    <span class="n">zip_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>    <span class="n">store_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a>    <span class="n">store_address</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="s2">""</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>    <span class="n">distance_mi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>    <span class="n">departments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>    <span class="c1"># sort on distance</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">KrogerLocationCard</span><span class="p">):</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_mi</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance_mi</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">KrogerLocationCard</span><span class="p">):</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_mi</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance_mi</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">KrogerLocationCard</span><span class="p">):</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_mi</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance_mi</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a>
+<a id="__codelineno-8-24" name="__codelineno-8-24"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">KrogerLocationCard</span><span class="p">):</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_mi</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance_mi</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Kroger Location Record</strong>
+</p><div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span>
+<span class="normal"><a href="#__codelineno-9-24">24</a></span>
+<span class="normal"><a href="#__codelineno-9-25">25</a></span>
+<span class="normal"><a href="#__codelineno-9-26">26</a></span>
+<span class="normal"><a href="#__codelineno-9-27">27</a></span>
+<span class="normal"><a href="#__codelineno-9-28">28</a></span>
+<span class="normal"><a href="#__codelineno-9-29">29</a></span>
+<span class="normal"><a href="#__codelineno-9-30">30</a></span>
+<span class="normal"><a href="#__codelineno-9-31">31</a></span>
+<span class="normal"><a href="#__codelineno-9-32">32</a></span>
+<span class="normal"><a href="#__codelineno-9-33">33</a></span>
+<span class="normal"><a href="#__codelineno-9-34">34</a></span>
+<span class="normal"><a href="#__codelineno-9-35">35</a></span>
+<span class="normal"><a href="#__codelineno-9-36">36</a></span>
+<span class="normal"><a href="#__codelineno-9-37">37</a></span>
+<span class="normal"><a href="#__codelineno-9-38">38</a></span>
+<span class="normal"><a href="#__codelineno-9-39">39</a></span>
+<span class="normal"><a href="#__codelineno-9-40">40</a></span>
+<span class="normal"><a href="#__codelineno-9-41">41</a></span>
+<span class="normal"><a href="#__codelineno-9-42">42</a></span>
+<span class="normal"><a href="#__codelineno-9-43">43</a></span>
+<span class="normal"><a href="#__codelineno-9-44">44</a></span>
+<span class="normal"><a href="#__codelineno-9-45">45</a></span>
+<span class="normal"><a href="#__codelineno-9-46">46</a></span>
+<span class="normal"><a href="#__codelineno-9-47">47</a></span>
+<span class="normal"><a href="#__codelineno-9-48">48</a></span>
+<span class="normal"><a href="#__codelineno-9-49">49</a></span>
+<span class="normal"><a href="#__codelineno-9-50">50</a></span>
+<span class="normal"><a href="#__codelineno-9-51">51</a></span>
+<span class="normal"><a href="#__codelineno-9-52">52</a></span>
+<span class="normal"><a href="#__codelineno-9-53">53</a></span>
+<span class="normal"><a href="#__codelineno-9-54">54</a></span>
+<span class="normal"><a href="#__codelineno-9-55">55</a></span>
+<span class="normal"><a href="#__codelineno-9-56">56</a></span>
+<span class="normal"><a href="#__codelineno-9-57">57</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">    </span><span class="err">_id</span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id('</span><span class="mi">67</span><span class="err">a</span><span class="mi">8</span><span class="kc">f</span><span class="err">ca</span><span class="mf">3e</span><span class="err">bd</span><span class="mi">56</span><span class="kc">f</span><span class="mf">3e259e70</span><span class="err">c</span><span class="mi">2</span><span class="err">')</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">    </span><span class="err">uid</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">    </span><span class="err">la</span><span class="kc">test</span><span class="err">_upda</span><span class="kc">te</span><span class="err">_</span><span class="kc">t</span><span class="err">ime</span><span class="p">:</span><span class="w"> </span><span class="err">ISODa</span><span class="kc">te</span><span class="err">('</span><span class="mi">2025-02-09</span><span class="err">T</span><span class="mi">19</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">11.306</span><span class="err">Z')</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="err">s</span><span class="kc">t</span><span class="err">ore_id</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">01400747</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="err">zip_code</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">45377</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">    </span><span class="err">s</span><span class="kc">t</span><span class="err">ore_</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">'Kroger</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">Va</span><span class="kc">n</span><span class="err">dalia'</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="err">s</span><span class="kc">t</span><span class="err">ore_address</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="p">{</span><span class="nt">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"780 Northwoods Blvd"</span><span class="p">,</span><span class="w"> </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vandalia"</span><span class="p">,</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OH"</span><span class="p">,</span><span class="w"> </span><span class="nt">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45377"</span><span class="p">,</span><span class="w"> </span><span class="nt">"county"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MONTGOMERY COUNTY"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">    </span><span class="err">dis</span><span class="kc">tan</span><span class="err">ce_mi</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9846650874390342</span><span class="p">,</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">    </span><span class="err">depar</span><span class="kc">t</span><span class="err">me</span><span class="kc">nts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"73"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Eco Atm"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TL"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tobacco"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0J"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Home Chef"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Books And Magazines"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kosher Food"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coinstar"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Atm"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ticketmaster"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MO"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Money Orders"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sushi"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cell Phone"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drive-thru Pharmacy"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Hour Photo"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Self Checkout"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Event Tickets"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wine"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Post Office"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Starbucks"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"65"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Money Services"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Floral"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pharmacy"</span><span class="p">,</span><span class="w"> </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9372642420"</span><span class="p">,</span><span class="w"> </span><span class="nt">"hours"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"monday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"tuesday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"wednesday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"thursday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"friday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"saturday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"sunday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}}}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cosmetics"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drug &amp; General Merchandise"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"44"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beer"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"63"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I-wireless"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"89"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Western Union"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="p">,</span><span class="w"> </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9376650323"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deli"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meat Department"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Natural And Organics"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Boar\'s Head"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Little Clinic/Walk-in Center"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"69"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Online Deli/Bakery Ordering"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Diesel"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LY"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lottery Tickets"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bakery"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"03"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cheese Counter"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-48" name="__codelineno-9-48"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Videos"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-49" name="__codelineno-9-49"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"99"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Check Cashing"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AF"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account Funding"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-51" name="__codelineno-9-51"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"05"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Seafood Department"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-52" name="__codelineno-9-52"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gas Station"</span><span class="p">,</span><span class="w"> </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9376650310"</span><span class="p">,</span><span class="w"> </span><span class="nt">"hours"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"monday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"tuesday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"wednesday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"thursday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"friday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"saturday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"> </span><span class="nt">"sunday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"open24"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}},</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"780 Northwoods Blvd"</span><span class="p">,</span><span class="w"> </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vandalia"</span><span class="p">,</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OH"</span><span class="p">,</span><span class="w"> </span><span class="nt">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45377"</span><span class="p">},</span><span class="w"> </span><span class="nt">"geolocation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">39.8993538</span><span class="p">,</span><span class="w"> </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-84.1841067</span><span class="p">,</span><span class="w"> </span><span class="nt">"latLng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39.8993538,-84.1841067"</span><span class="p">},</span><span class="w"> </span><span class="nt">"offsite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-53" name="__codelineno-9-53"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bath"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-54" name="__codelineno-9-54"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olive Bar"</span><span class="p">}</span><span class="err">'</span><span class="p">,</span>
+<a id="__codelineno-9-55" name="__codelineno-9-55"></a><span class="w">        </span><span class="err">'</span><span class="p">{</span><span class="nt">"departmentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redbox"</span><span class="p">}</span><span class="err">'</span>
+<a id="__codelineno-9-56" name="__codelineno-9-56"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-9-57" name="__codelineno-9-57"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../getting_started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Getting Started
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../tools_and_technologies/" class="md-footer__link md-footer__link--next" aria-label="Next: Tools and Technologies">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Tools and Technologies
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "navigation.footer", "search.suggest", "search.highlight", "search.share", "toc.follow", null], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../assets/javascripts/badge.js" async></script>
+      
+        <script src="../termynal.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

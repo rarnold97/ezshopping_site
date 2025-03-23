@@ -1,0 +1,21 @@
+{
+    _id: ObjectId('67cf94ca5006d85ff30c5400'),
+    uid: null,
+    latest_update_time: ISODate('2025-03-10T21:41:30.168Z'),
+    file_storage_id: ObjectId('67cf94c95006d85ff30c5372'),
+    image_filename: 'real_photo_1.png',
+    image_size: [
+        3024,
+        4032
+    ],
+    image_mode: 'RGB',
+    classification_labels: [
+        'orange',
+        'banana'
+    ],
+    username: 'rarnold97',
+    linked_product_ids: [
+        ObjectId('67d21b975c9d0750485791e9'),
+        ObjectId('67d21b9e5c9d0750485791f4')
+    ]
+}

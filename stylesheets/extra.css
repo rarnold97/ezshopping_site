@@ -1,0 +1,13 @@
+.md-grid {
+    margin: 0px;
+    max-width: 200em;
+}
+
+.md-sidebar-secondary {
+    right: 0;
+    margin-left: 0;
+    -webkit-transform: none;
+    transform: none;
+    padding-left: 5%;
+    min-width: 30em;
+}

@@ -1,0 +1,10 @@
+{
+    _id: ObjectId('67d399971356f8c19c17054e'),
+    uid: null,
+    latest_update_time: ISODate('2025-03-13T22:51:03.244Z'),
+    username: 'megamanx',
+    password: 'a2b26668dd97c2f93ab0c9f877ff5a4ef7f3e0f3755d12880bedd1bdfd497ff3',  // ascii representation: rockman
+    access_code: 'XXXX',
+    kroger_access_token: 'YYYYY',
+    kroger_refresh_token: 'ZZZZZZZZZ'
+}
